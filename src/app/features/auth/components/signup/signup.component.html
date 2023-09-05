@@ -1,0 +1,28 @@
+<div class="signup-form">
+  <h1>Create new account</h1>
+      <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+  <div class="form-field">
+    <input type="text" placeholder="username" id="signup_username" name="username" [(ngModel)]="signUpForm.username" #username="ngModel" required>
+    <input type="email" placeholder="email" id="email" name="email" [(ngModel)]="signUpForm.email" #email="ngModel" required>
+    <input type="password" placeholder="password" id="password1" name="password1" [(ngModel)]="signUpForm.password" #password="ngModel" required>
+    <input type="password" placeholder="confirm password" id="password2" name="password2" [(ngModel)]="signUpForm.confirmPassword" #password2="ngModel" required>
+    <div class="alert alert-danger" role="alert" *ngIf="f.submitted">
+      <ng-container *ngIf="f.submitted && (username.errors || email.errors || password.errors || password2.errors || isSignUpFailed)">
+        <ng-container *ngIf="username.errors">Username is required <br> </ng-container>
+        <ng-container *ngIf="email.errors">Email must be a valid email address <br> </ng-container>
+        <ng-container *ngIf="password.errors">Password is required <br> </ng-container>
+        <ng-container *ngIf="password2.errors">You must confirm password <br> </ng-container>
+        <ng-container *ngIf="isSignUpFailed">{{ errorMessage }} <br> </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="confirm-bar">
+    <button class="signup-button button">Sing Up</button>
+  </div>
+      </form>
+</div>

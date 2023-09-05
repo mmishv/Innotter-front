@@ -1,0 +1,43 @@
+<div class="login-form">
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <div class="form-field">
+      <input type="text" placeholder="username" id="username" name="username" required [(ngModel)]="form.username"
+             #username="ngModel">
+      <input type="password" placeholder="password" id="password" name="password" required [(ngModel)]="form.password"
+             #password="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="f.submitted">
+        <ng-container *ngIf="username.errors"> Username is required <br></ng-container>
+        <ng-container *ngIf="password.errors"> Password is required <br></ng-container>
+        <ng-container *ngIf="isLoginFailed"> Invalid login or password <br></ng-container>
+      </div>
+    </div>
+    <div class="login-options">
+      <div class="forgot-password">
+        <a href="" class="reset-link" data-toggle="modal" data-target="#resetPasswordModal">Forgot password?</a>
+        <div class="modal" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="resetPasswordModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="modal-body">
+                <form (ngSubmit)="resetPassword()" #resetForm="ngForm" novalidate>
+                  <input class="reset-password-input" type="email" placeholder="account email" required
+                         [(ngModel)]="resetData.email" name="resetEmail">
+                  <h6> Enter the email associated with your account to change your password. To reset your password
+                       follow the link in the email. </h6>
+                  <div class="text-center">
+                    <button class="button reset-button" [disabled]="!resetForm.form.valid">Reset password</button>
+                  </div>
+                </form>
+                <div class="alert alert-success mt-2" *ngIf="resetSuccess">Password reset email sent.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="button login-button">Log In</button>
+    </div>
+  </form>
+</div>
