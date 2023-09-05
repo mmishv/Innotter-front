@@ -1,0 +1,15 @@
+version: '3'
+services:
+  angular:
+    container_name: angular
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+    - user-management_default
+networks:
+    user-management_default:
+      external: true
+
