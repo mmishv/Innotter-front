@@ -1,0 +1,33 @@
+<div class="user-pages">
+  <div class="pages-container">
+    <ul>
+      <ng-container *ngIf="userPages.length; else noPages">
+        <li *ngFor="let page of userPages" class="page">
+          <div class="page-content" (click)="selectPage(page.id)"
+               [ngStyle]="{'background-color': page.id.toString() === getSelectedPageId() ? '#F0E4E4' : '#D9D9D9'}">
+            <div class="page-image">
+              <img
+                *ngIf="page.image_s3_path; else defaultImage"
+                [src]="'data:image/jpeg;base64,' + page.image"
+                alt="page image"
+              />
+              <ng-template #defaultImage>
+                <img
+                  ngSrc="assets/img/default_profile.jpg"
+                  alt="page image"
+                  height="800" width="800"/>
+              </ng-template>
+            </div>
+            <div class="page-info">
+              <span class="page-name" [ngClass]="{'text-ellipsis': page.name.length > 10}">{{ page.name }}</span><br>
+              <span class="page-uuid" [ngClass]="{'text-ellipsis': page.uuid.length > 18}">@{{ page.uuid }}</span>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+      <ng-template #noPages>
+        <div class="no-pages"> You haven't created any pages yet</div>
+      </ng-template>
+    </ul>
+  </div>
+</div>
