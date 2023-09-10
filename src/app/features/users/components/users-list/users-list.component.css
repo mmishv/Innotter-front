@@ -1,0 +1,78 @@
+.users {
+  max-height: 53vh;
+  overflow-y: auto;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 20px;
+  background-color: white;
+  margin-bottom: 10px;
+  list-style: none;
+  align-items: center;
+}
+
+.user-content {
+  display: flex;
+}
+
+.user-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.user-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(20ch + 1rem);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.username {
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 18px;
+  color: black;
+}
+
+.user-info {
+  color: #ABABAB;
+  font-size: 15px;
+}
+
+ul {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+.no-users {
+  font-size: 15px;
+  color: #ABABAB;
+}
+
+.btn {
+  font-size: 12px !important;
+  margin-right: 10px;
+  margin-top: 0 !important;
+}
+
+.reject-btn {
+  background-color: #E10C0C !important;
+  color: white !important;
+}
+
+.all-actions-btn-container {
+  margin-top: 10px;
+}

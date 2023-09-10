@@ -1,0 +1,42 @@
+<div class="users">
+  <div class="users-container">
+    <ul>
+      <ng-container *ngIf="users.length; else noUsers">
+        <li *ngFor="let user of users" class="user">
+          <div class="user-content">
+            <div class="user-image">
+              <img
+                *ngIf="user.image_s3_path; else defaultImage"
+                [src]="'data:image/jpeg;base64,' + user.image"
+                alt="user image"
+              />
+              <ng-template #defaultImage>
+                <img
+                  ngSrc="assets/img/default_profile.jpg"
+                  alt="page image"
+                  height="800" width="800"/>
+              </ng-template>
+            </div>
+            <div class="user-info text-ellipsis">
+              <span class="username"> {{ user.username }}</span><br>
+              <span *ngIf="user.name" class="user-name">{{ user.name }}</span>&nbsp;
+              <span *ngIf="user.surname" class="user-surname">{{ user.surname }}</span>&nbsp;
+            </div>
+          </div>
+          <div *ngIf="tabName==='requests'" class="btn-container">
+            <button class="btn reject-btn bezel-red-btn" (click)="acceptRequest(user.id)">Accept</button>
+            <button class="btn bezel-red-btn" (click)="rejectRequest(user.id)">Reject</button>
+          </div>
+        </li>
+      </ng-container>
+      <ng-template #noUsers>
+        <div class="no-users"> There's nothing here yet</div>
+      </ng-template>
+    </ul>
+
+  </div>
+</div>
+<div *ngIf="tabName==='requests' && users.length;" class="all-actions-btn-container">
+  <button class="btn reject-btn bezel-red-btn" (click)="acceptAllRequests()">Accept all</button>
+  <button class="btn bezel-red-btn" (click)="rejectAllRequests()">Reject all</button>
+</div>
