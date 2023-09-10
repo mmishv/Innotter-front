@@ -1,0 +1,24 @@
+<div class="tab">
+  <div class="tab-container">
+    <button class="tab-button" (click)="showTab('followers')" [ngClass]="{ 'active': activeTab === 'followers' }">
+      Followers
+    </button>
+    <button *ngIf="isCurrentPage()" class="tab-button" (click)="showTab('requests')"
+            [ngClass]="{ 'active': activeTab === 'requests' }">
+      Follow requests
+    </button>
+  </div>
+  <div id="followers" class="tab-content tab-left" [ngClass]="{'tab-left-border': !isCurrentPage()}"
+       [hidden]="activeTab !== 'followers'">
+    <app-users-list [usersUuid]="page.followers"></app-users-list>
+  </div>
+  <div id="requests" class="tab-content tab-right"
+       [hidden]="activeTab !== 'requests'">
+    <div *ngIf="page.is_private; else publicPageContent">
+      <app-users-list [usersUuid]="page.follow_requests" [tabName]="'requests'"></app-users-list>
+    </div>
+    <ng-template #publicPageContent>
+      <p>This is a public page, page content is available to everyone</p>
+    </ng-template>
+  </div>
+</div>
