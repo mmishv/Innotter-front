@@ -28,7 +28,7 @@ export class PageService {
 
   createPage(name: string, description: string): Observable<any> {
     return this.http.post<any>(INNOTTER_URL + '/pages/', {
-      name: name, description: name
+      name: name, description: description
     }, httpOptionsJSON);
   }
 
