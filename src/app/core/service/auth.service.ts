@@ -22,6 +22,7 @@ interface UserResetPassword {
   reset_token: string;
   new_password: string;
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,8 +37,7 @@ export class AuthService {
     const body = new HttpParams()
       .set('username', username)
       .set('password', password);
-    return this.http.post<AuthResponse>(AUTH_URL + '/auth/login/', body.toString(),
-      httpOptionsForm).pipe(tap((response) => {
+    return this.http.post<AuthResponse>(AUTH_URL + '/auth/login/', body.toString(), httpOptionsForm).pipe(tap((response) => {
       if (response.access_token) {
         localStorage.setItem(this.accessToken, response.access_token);
         localStorage.setItem(this.refreshToken, response.refresh_token);
@@ -59,6 +59,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem(this.refreshToken);
+    localStorage.removeItem('selectedPage');
   }
 
   refreshTokens(): Observable<any> {
@@ -90,7 +91,7 @@ export class AuthService {
   }
 
   resetPasswordRequest(email: string): Observable<any> {
-    const resetRequest = { email };
+    const resetRequest = {email};
     return this.http.post<any>(AUTH_URL + '/auth/reset-password-request/', resetRequest, httpOptionsJSON);
   }
 

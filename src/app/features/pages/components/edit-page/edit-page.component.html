@@ -1,0 +1,48 @@
+<button class="bezel-red-btn" data-toggle="modal" data-target="#editPageModal">Edit</button>
+<div class="modal" id="editPageModal" tabindex="-1" role="dialog" aria-labelledby="editPageModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body">
+        <div class="text-left edit-page-text"> Edit page info</div>
+        <form class="main-info-form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="uuid"> UUID: displayed after the @ symbol, a unique identifier </label>
+            <input type="text" id="uuid" name="uuid" class="form-control"
+                   [(ngModel)]="editPageForm.uuid">
+          </div>
+          <div class="form-group">
+            <label for="name"> Name: page title visible to all users </label>
+            <input type="text" id="name" name="name" class="form-control"
+                   [(ngModel)]="editPageForm.name">
+          </div>
+          <div class="form-group">
+            <label for="description">Bio: description of the page </label>
+            <textarea id="description" name="description"
+                      class="form-control" [(ngModel)]="editPageForm.description"></textarea>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="bezel-red-btn">Save</button>
+          </div>
+        </form>
+        <h5>Page tags (click to add/delete)</h5>
+        <ul class="tag-list">
+          <li class="tag-list-item" *ngFor="let tag of getCurrentPageTags()"
+              [ngClass]="{'tag-in-page': isTagInPage(tag)}" (click)="tagClickHandler(tag)">
+            <div class="tag-text" [title]="tag">{{ tag }}</div>
+            <div class="tag-tooltip">{{ tag }}</div>
+          </li>
+        </ul>
+        <button class="btn bezel-red-btn" (click)="showMoreTags()"
+                *ngIf="currentPage * itemsPerPage < tags.length">Show more
+        </button>
+        <h5 *ngIf="currentPage$ | async as currentPage">Page
+                                                        visibilily:  {{ currentPage.is_private ? 'private' : 'public' }}</h5>
+        <button class="btn bezel-red-btn" (click)="changeVisibility()">Change visibility</button>
+      </div>
+    </div>
+  </div>
+</div>

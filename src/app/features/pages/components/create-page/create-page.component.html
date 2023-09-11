@@ -1,0 +1,33 @@
+<button class="bezel-red-btn " data-toggle="modal" data-target="#createPageModal">New page</button>
+<div class="modal" id="createPageModal" tabindex="-1" role="dialog" aria-labelledby="createPageModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body">
+        <div class="create-page-form">
+          <div class="text-left new-page-text"> New page</div>
+          <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+          >
+            <div class="form-field">
+              <input type="text" placeholder="Page title visible to all users" name="name"
+                     [(ngModel)]="createPageForm.name"
+                     required>
+              <textarea name="description" placeholder="Bio" [(ngModel)]="createPageForm.description"
+                        required> </textarea>
+            </div>
+            <div class="confirm-bar">
+              <button class="bezel-red-btn">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
