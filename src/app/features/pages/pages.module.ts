@@ -10,12 +10,14 @@ import {CreatePageComponent} from "./components/create-page/create-page.componen
 import {TabsComponent} from './components/tabs/tabs.component';
 import {EditPageComponent} from './components/edit-page/edit-page.component';
 import {UsersListComponent} from "../users/components/users-list/users-list.component";
+import {PostsRoutingModule} from "../posts/posts.routing";
 
 
 @NgModule({
   declarations: [UserPagesComponent, CreatePageComponent, TabsComponent, EditPageComponent, UsersListComponent],
-  exports: [UserPagesComponent, CreatePageComponent, TabsComponent, EditPageComponent,],
-  imports: [PagesRoutingModule, FormsModule, HttpClientModule, NgIf, NgForOf, NgOptimizedImage, NgClass, NgStyle, AsyncPipe, SlicePipe, NgTemplateOutlet]
+  exports: [UserPagesComponent, CreatePageComponent, TabsComponent, EditPageComponent, UsersListComponent],
+  imports: [PagesRoutingModule, PostsRoutingModule, FormsModule, HttpClientModule,
+    NgIf, NgForOf, NgOptimizedImage, NgClass, NgStyle, AsyncPipe, SlicePipe, NgTemplateOutlet]
 })
 export class PageModule {
 }
