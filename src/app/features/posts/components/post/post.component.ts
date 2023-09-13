@@ -33,7 +33,9 @@ export class PostComponent {
   }
 
   onClick(pageId: string, postId: string) {
-    this.router.navigate(['page', pageId, 'post', postId]);
+    if (!this.isEditing) {
+      this.router.navigate(['page', pageId, 'post', postId]);
+    }
   }
 
   isUpdatedLessThanTenSecondsAgo(updatedAt: string, createdAt: string): boolean {
