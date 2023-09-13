@@ -1,5 +1,7 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {PageService} from "../../core/service/page.service";
+import {PostService} from "../../core/service/posts.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-home-layout',
@@ -7,7 +9,8 @@ import {PageService} from "../../core/service/page.service";
   styleUrls: ['./home-layout.component.scss',
     '../../../../src/app/styles/buttons.scss',
     '../../../../src/app/styles/tags.scss',
-    '../../../../src/app/styles/scrollbar.scss']
+    '../../../../src/app/styles/scrollbar.scss',
+    '../../../../src/app/styles/page-frame.scss']
 })
 export class HomeLayoutComponent implements OnInit {
   @ViewChild('searchResultsContainer') elRef!: ElementRef;
@@ -15,7 +18,7 @@ export class HomeLayoutComponent implements OnInit {
   searchResult: any[] = [];
   showSearchResults: boolean = false;
   tags: any[] = [];
-
+  newsFeed$: Observable<any>;
   searchTag: string = '';
   filteredTags: string[] = [];
 
@@ -24,9 +27,11 @@ export class HomeLayoutComponent implements OnInit {
       this.tags = tags.map(tag => tag.name);
       this.filteredTags = Object.assign([], this.tags);
     });
+    this.newsFeed$ = this.postService.getUserNewsFeed();
   }
 
-  constructor(protected pageService: PageService) {
+  constructor(protected pageService: PageService, protected postService: PostService) {
+    this.newsFeed$ = new Observable<any>();
   }
 
   onTagSearch() {
@@ -51,5 +56,9 @@ export class HomeLayoutComponent implements OnInit {
       this.showSearchResults = false;
       this.elRef.nativeElement.style.display = 'none';
     }
+  }
+
+  isPageSelected(): boolean {
+    return this.pageService.getSelectedPageId() !== null;
   }
 }
