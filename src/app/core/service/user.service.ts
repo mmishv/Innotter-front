@@ -20,11 +20,7 @@ export class UserService {
   getUsersByUUIDList(uuidList: string[]): Observable<any> {
     const url = `${USER_MNG_URL}/users/list/`;
     const requestBody = {uuid_list: uuidList};
-    let users = this.http.post(url, requestBody, httpOptionsJSON);
-    (users.subscribe(users => {
-      console.log(users)
-    }));
-    return users;
+    return this.http.post(url, requestBody, httpOptionsJSON);
   }
 
   getUserData(): Observable<any> {

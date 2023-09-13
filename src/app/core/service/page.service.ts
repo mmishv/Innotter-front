@@ -60,10 +60,7 @@ export class PageService {
   loadPage(pageId: string) {
     this.http.get<any>(INNOTTER_URL + `/pages/${pageId}/`, httpOptionsJSON).subscribe((data) => {
       this.currentPageSubject.next(data);
-    }, (error) => {
-      console.error('Failed to load current page:', error);
     });
-
   }
 
   loadStatistics() {
@@ -71,8 +68,6 @@ export class PageService {
     if (pageId) {
       this.http.get<any>(STATISTICS_URL + `/statistics/${pageId}/`, httpOptionsJSON).subscribe((data) => {
         this.currentPageStatisticsSubject.next(data);
-      }, (error) => {
-        console.error('Failed to load statistics:', error);
       });
     } else {
       this.currentPageStatisticsSubject.next(null);
