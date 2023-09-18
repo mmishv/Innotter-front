@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PageService} from "../../../../core/service/page.service";
+import {Page} from "../../../../core/model/page.model";
 
 @Component({
   selector: 'user-pages',
@@ -7,7 +8,7 @@ import {PageService} from "../../../../core/service/page.service";
   styleUrls: ['./user-pages.component.css', '../../../../../app/styles/scrollbar.scss']
 })
 export class UserPagesComponent implements OnInit {
-  userPages: any[] = [];
+  userPages: Page[] = [];
 
   constructor(private pageService: PageService) {
   }

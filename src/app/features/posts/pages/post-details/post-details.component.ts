@@ -25,7 +25,7 @@ export class PostDetailsComponent implements OnInit {
       this.postId = params.get('postId') ?? '';
       this.postService.getPost(this.pageId, this.postId).subscribe(data => this.postData = data)
     });
-    this.userService.getUserData().subscribe((userData) => {
+    this.userService.getCurrentUserData().subscribe((userData) => {
       this.userData = userData;
     });
   }

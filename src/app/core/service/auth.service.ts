@@ -27,17 +27,18 @@ interface UserResetPassword {
   providedIn: 'root'
 })
 export class AuthService {
-  private accessToken = '';
-  private refreshToken = '';
+  accessToken = '';
+  refreshToken = '';
 
   constructor(private http: HttpClient) {
   }
 
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<AuthResponse> {
     const body = new HttpParams()
       .set('username', username)
       .set('password', password);
-    return this.http.post<AuthResponse>(AUTH_URL + '/auth/login/', body.toString(), httpOptionsForm).pipe(tap((response) => {
+    return this.http.post<AuthResponse>(AUTH_URL + '/auth/login/', body.toString(),
+      httpOptionsForm).pipe(tap((response) => {
       if (response.access_token) {
         localStorage.setItem(this.accessToken, response.access_token);
         localStorage.setItem(this.refreshToken, response.refresh_token);
@@ -45,13 +46,12 @@ export class AuthService {
     }));
   }
 
-  signup(username: string, email: string, password: string): Observable<any> {
+  signup(username: string, email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(AUTH_URL + '/auth/signup/', {
       username: username, email: email, password: password
     }, httpOptionsJSON).pipe(tap((response) => {
       if (response.access_token) {
-        localStorage.setItem(this.accessToken, response.access_token);
-        localStorage.setItem(this.refreshToken, response.refresh_token);
+        this.setTokens(response.access_token, response.refresh_token);
       }
     }));
   }
@@ -62,20 +62,11 @@ export class AuthService {
     localStorage.removeItem('selectedPage');
   }
 
-  refreshTokens(): Observable<any> {
+  refreshTokens(): Observable<AuthResponse> {
     const refreshToken = this.getRefreshToken();
-    if (!refreshToken) {
-      return new Observable();
-    }
-
     return this.http.post<AuthResponse>(AUTH_URL + `/auth/refresh-token/`, {
       token: refreshToken,
-    }, httpOptionsJSON).pipe(tap((response) => {
-      if (response.access_token) {
-        localStorage.setItem(this.accessToken, response.access_token);
-        localStorage.setItem(this.refreshToken, response.refresh_token);
-      }
-    }));
+    }, httpOptionsJSON)
   }
 
   getToken(): string | null {
@@ -84,6 +75,10 @@ export class AuthService {
 
   getRefreshToken(): string | null {
     return localStorage.getItem(this.refreshToken);
+  }
+  setTokens(accessToken: string, refreshToken: string){
+    localStorage.setItem(this.accessToken, accessToken);
+    localStorage.setItem(this.refreshToken, refreshToken);
   }
 
   isAuthenticated(): boolean {

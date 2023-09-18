@@ -1,12 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PageService} from "../../../../core/service/page.service";
+import {Page} from "../../../../core/model/page.model";
 
 @Component({
   selector: 'app-tabs', templateUrl: './tabs.component.html', styleUrls: ['./tabs.component.css']
 })
 export class TabsComponent {
-  @Input() page: any;
+  @Input() page!: Page;
 
   activeTab: string = 'followers';
 

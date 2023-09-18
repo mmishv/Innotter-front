@@ -5,6 +5,9 @@ import {Observable} from "rxjs";
 import {PageService} from "../../../../core/service/page.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../../../core/service/user.service";
+import {User} from "../../../../core/model/user.model";
+import {Page} from "../../../../core/model/page.model";
+import {Statistics} from "../../../../core/model/statistics.model";
 
 @Component({
   selector: 'app-home-layout',
@@ -18,14 +21,14 @@ import {UserService} from "../../../../core/service/user.service";
 export class PageLayoutComponent implements OnInit {
   @ViewChild('avatarInput', {static: false}) avatarInput!: ElementRef<HTMLInputElement>;
 
-  currentPage$: Observable<any>;
-  currentPageStatistics$: Observable<any>;
+  currentPage$: Observable<Page>;
+  currentPageStatistics$: Observable<Statistics>;
   pageId: string = '';
-  userData: any;
+  userData!: User;
 
   constructor(private pageService: PageService, private route: ActivatedRoute, private userService: UserService) {
-    this.currentPage$ = new Observable<any>();
-    this.currentPageStatistics$ = new Observable<any>();
+    this.currentPage$ = new Observable<Page>();
+    this.currentPageStatistics$ = new Observable<Statistics>();
   }
 
   async ngOnInit() {
@@ -38,12 +41,12 @@ export class PageLayoutComponent implements OnInit {
       this.currentPageStatistics$ = this.pageService.currentPageStatistics$;
       this.pageService.loadStatistics();
     }
-    this.userService.getUserData().subscribe(data => this.userData = data);
+    this.userService.getCurrentUserData().subscribe(data => this.userData = data);
   }
 
   onFileSelected(event: Event) {
     const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files[0]) {
+    if (inputElement.files) {
       const file = inputElement.files[0];
       this.pageService.uploadImage(file).subscribe(response => {
         this.pageService.loadCurrentPage();
@@ -58,7 +61,7 @@ export class PageLayoutComponent implements OnInit {
   }
 
   canSubscribe(): boolean {
-    let pageData: any;
+    let pageData!: Page;
     this.currentPage$.subscribe(data => pageData = data);
     return pageData.owner_uuid !== this.userData.id &&
       !(pageData.followers.includes(this.userData.id) ||
@@ -66,15 +69,20 @@ export class PageLayoutComponent implements OnInit {
   }
 
   canUnsubscribe(): boolean {
-    let pageData: any;
+    let pageData!: Page;
     this.currentPage$.subscribe(data => pageData = data);
     return pageData.owner_uuid !== this.userData.id &&
-      pageData.followers.includes(this.userData.id) ||
-      pageData.follow_requests.includes(this.userData.id);
+      pageData.followers.includes(this.userData.id);
   }
 
+  canCancelRequest(): boolean {
+    let pageData!: Page;
+    this.currentPage$.subscribe(data => pageData = data);
+    return pageData.owner_uuid !== this.userData.id &&
+      pageData.follow_requests.includes(this.userData.id);
+  }
   isOwner() {
-    let pageData: any;
+    let pageData!: Page;
     this.currentPage$.subscribe(data => pageData = data);
     return pageData.owner_uuid === this.userData.id;
   }

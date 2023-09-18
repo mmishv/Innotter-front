@@ -2,6 +2,9 @@ import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/c
 import {PageService} from "../../core/service/page.service";
 import {PostService} from "../../core/service/posts.service";
 import {Observable} from "rxjs";
+import {Post} from "../../core/model/post.model";
+import {Page} from "../../core/model/page.model";
+import {UserService} from "../../core/service/user.service";
 
 @Component({
   selector: 'app-home-layout',
@@ -15,23 +18,25 @@ import {Observable} from "rxjs";
 export class HomeLayoutComponent implements OnInit {
   @ViewChild('searchResultsContainer') elRef!: ElementRef;
   searchQuery: string = '';
-  searchResult: any[] = [];
+  searchResult: Page[] = [];
   showSearchResults: boolean = false;
-  tags: any[] = [];
-  newsFeed$: Observable<any>;
+  tags: string[] = [];
+  newsFeed$: Observable<Post[]>;
   searchTag: string = '';
   filteredTags: string[] = [];
+  userId: string = "";
 
   ngOnInit(): void {
     this.pageService.getTags().subscribe(tags => {
       this.tags = tags.map(tag => tag.name);
       this.filteredTags = Object.assign([], this.tags);
     });
+    this.userService.getCurrentUserData().subscribe(data => this.userId = data.id);
     this.newsFeed$ = this.postService.getUserNewsFeed();
   }
 
-  constructor(protected pageService: PageService, protected postService: PostService) {
-    this.newsFeed$ = new Observable<any>();
+  constructor(protected pageService: PageService, protected postService: PostService, private userService: UserService) {
+    this.newsFeed$ = new Observable<Post[]>();
   }
 
   onTagSearch() {

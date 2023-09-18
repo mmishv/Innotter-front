@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../../../core/service/user.service";
 import {PageService} from "../../../../core/service/page.service";
+import {User} from "../../../../core/model/user.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-users-list',
@@ -11,11 +13,11 @@ import {PageService} from "../../../../core/service/page.service";
 })
 
 export class UsersListComponent implements OnInit {
-  @Input() usersUuid: any[] = [];
+  @Input() usersUuid: string[] = [];
   @Input() tabName: string = 'followers';
-  users: any[] = [];
+  users: User[] = [];
 
-  constructor(private userService: UserService, private pageService: PageService) {
+  constructor(private userService: UserService, private pageService: PageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -52,5 +54,9 @@ export class UsersListComponent implements OnInit {
     }, (error) => {
       console.log(error)
     });
+  }
+
+  onClick(userId: string){
+    this.router.navigate(["user", userId]);
   }
 }

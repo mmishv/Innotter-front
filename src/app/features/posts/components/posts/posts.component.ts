@@ -13,7 +13,7 @@ export class PostsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.userService.getUserData().subscribe((userData) => {
+    this.userService.getCurrentUserData().subscribe((userData) => {
       this.userData = userData;
     });
   }
