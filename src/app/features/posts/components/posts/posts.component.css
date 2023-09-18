@@ -25,3 +25,9 @@
 .post:hover {
   background-color: #F5F5F5;
 }
+
+.no-posts {
+  font-size: xx-large;
+  font-weight: 500;
+  color: #657786;
+}

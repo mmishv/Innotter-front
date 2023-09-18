@@ -4,6 +4,7 @@ import {Observable, switchMap} from 'rxjs';
 import env from "../../../environments/.env";
 import {UserService} from "./user.service";
 import {PageService} from "./page.service";
+import {Post} from "../model/post.model";
 
 const INNOTTER_URL = env.innotterUrl;
 
@@ -19,21 +20,21 @@ export class PostService {
   constructor(private http: HttpClient, private userService: UserService, private pageService: PageService) {
   }
 
-  getUserNewsFeed(): Observable<any> {
-    return this.userService.getUserData().pipe(
+  getUserNewsFeed(): Observable<Post[]> {
+    return this.userService.getCurrentUserData().pipe(
       switchMap((userData) => {
         const userId = userData.id;
         const newsFeedUrl = INNOTTER_URL + `/users/${userId}/news/`;
-        return this.http.get<any>(newsFeedUrl, httpOptionsJSON);
+        return this.http.get<Post[]>(newsFeedUrl, httpOptionsJSON);
       })
     );
   }
-  createPost(text: string): Observable<any> {
+  createPost(text: string): Observable<Post> {
     let pageId = this.pageService.getSelectedPageId()
-    return this.http.post<any>(INNOTTER_URL + `/pages/${pageId}/posts/`, {content: text}, httpOptionsJSON);
+    return this.http.post<Post>(INNOTTER_URL + `/pages/${pageId}/posts/`, {content: text}, httpOptionsJSON);
   }
-  getPost(pageId: string, postId: string): Observable<any> {
-    return this.http.get<any>(INNOTTER_URL + `/pages/${pageId}/posts/${postId}/`, httpOptionsJSON);
+  getPost(pageId: string, postId: string): Observable<Post> {
+    return this.http.get<Post>(INNOTTER_URL + `/pages/${pageId}/posts/${postId}/`, httpOptionsJSON);
   }
 
   likePost(pageId: string, postId: string): Observable<any> {
@@ -51,7 +52,15 @@ export class PostService {
     return this.http.delete<any>(INNOTTER_URL + `/pages/${pageId}/posts/${postId}/`, httpOptionsJSON);
   }
 
-  createReply(pageId: string, postId: string, text: string): Observable<any> {
-    return this.http.post<any>(INNOTTER_URL + `/pages/${pageId}/posts/${postId}/reply/`, {content: text}, httpOptionsJSON);
+  createReply(pageId: string, postId: string, text: string): Observable<Post> {
+    return this.http.post<Post>(INNOTTER_URL + `/pages/${pageId}/posts/${postId}/reply/`, {content: text}, httpOptionsJSON);
+  }
+
+  getLikes() {
+    return this.userService.getCurrentUserData().pipe(switchMap((userData) => {
+      const userId = userData.id;
+      const userLikesUrl = INNOTTER_URL + `/users/${userId}/likes/`;
+      return this.http.get<Post[]>(userLikesUrl, httpOptionsJSON);
+    }));
   }
 }

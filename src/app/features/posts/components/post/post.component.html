@@ -13,7 +13,7 @@
   </div>
   <div class="main">
     <div class="main-info">
-      <div>
+      <div class="identifiers-wrapper" style="display: flex; flex-direction: column;">
         <div class="identifiers">
           <span class="page-name"> <a href="/page/{{post.page.id}}">{{ post.page.name }}</a></span>&nbsp;
           <span class="page-uuid">@{{ post.page.uuid }}</span>
@@ -22,7 +22,7 @@
            class="reply-to">reply to @{{post.reply_to.page_uuid}}</a>
       </div>
       <div class="post-timestamp">
-        <span>{{ post.created_at | date:'HH:mm MMM d, yyyy' }}</span> &nbsp;
+        <span>{{ post.created_at | date:'HH:mm MMM d, yyyy' }}</span>
         <span style="font-size: small;"
               *ngIf="!isUpdatedLessThanTenSecondsAgo(post.updated_at, post.created_at)">
                   (updated at {{ post.updated_at | date:'HH:mm MMM d, yyyy' }})</span>
