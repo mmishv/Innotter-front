@@ -15,6 +15,7 @@
 
 .user-content {
   display: flex;
+  padding: 5px;
 }
 
 .user-image {
@@ -42,7 +43,6 @@
 
 .username {
   font-weight: bold;
-  margin-left: 10px;
   font-size: 18px;
   color: black;
 }
@@ -50,6 +50,7 @@
 .user-info {
   color: #ABABAB;
   font-size: 15px;
+  margin-left: 10px;
 }
 
 ul {
@@ -65,7 +66,7 @@ ul {
 .btn {
   font-size: 12px !important;
   margin-right: 10px;
-  margin-top: 0 !important;
+  margin-top: 2px !important;
 }
 
 .reject-btn {
@@ -75,4 +76,9 @@ ul {
 
 .all-actions-btn-container {
   margin-top: 10px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
 }

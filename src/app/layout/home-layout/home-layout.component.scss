@@ -1,11 +1,11 @@
 .logo {
-  margin-bottom: 20%;
+  margin-bottom: 15%;
   width: 65%;
 }
 
 .logo-text {
   color: #E10C0C;
-  font-size: 40px;
+  font-size: 45px;
   font-family: "Open Sans", serif;
   font-weight: 900;
 }
@@ -22,7 +22,7 @@
 }
 
 .menu {
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
 .menu ul {
@@ -36,9 +36,9 @@
 
 .menu ul li a {
   text-decoration: none;
-  color: #ABABAB;
-  font-weight: 500;
-  font-size: 25px;
+  color: #657786;
+  font-weight: 600;
+  font-size: x-large;
 }
 
 .icon-text {
@@ -47,7 +47,7 @@
 }
 
 h5 {
-  color: #ABABAB;
+  color: #657786;
   margin-top: 40px;
 }
 
@@ -130,6 +130,12 @@ svg {
 
 .tag-list-item {
   width: calc(33% - 10px) !important;
+  background-color: #F5F5F5 !important;
+  border: 1px solid #657786 !important;
+}
+
+.tag-text {
+  color: #657786 !important;
 }
 
 .search-tags-input {

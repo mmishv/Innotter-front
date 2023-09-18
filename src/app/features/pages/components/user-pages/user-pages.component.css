@@ -13,6 +13,7 @@
   border-radius: 20px;
   justify-content: flex-start;
   align-items: flex-start;
+  padding: 5px;
 }
 
 .page-image {
@@ -59,11 +60,8 @@ ul {
   padding-right: 5px;
 }
 
-.modal-dialog {
-  max-width: 80%;
-}
-
 .no-pages {
   font-size: 15px;
+  font-weight: bolder;
   color: #ABABAB;
 }
