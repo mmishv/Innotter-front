@@ -1,0 +1,15 @@
+.content-wrapper {
+  background-color: white !important;
+  width: 60% !important;
+}
+
+.left-panel-wrapper {
+  width: 10% !important;
+}
+
+.posts {
+  display: block;
+  width: 75%;
+  margin-left: auto;
+  margin-right: 10%;
+}

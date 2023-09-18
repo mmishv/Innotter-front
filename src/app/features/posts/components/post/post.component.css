@@ -1,6 +1,7 @@
 .post-content {
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
 }
 
 .post-header {
@@ -25,6 +26,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: baseline;
+  flex-direction: column;
+  justify-items: flex-start
 }
 
 .main {
@@ -33,13 +36,11 @@
 }
 
 .post-text {
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 400;
-  margin-right: 10px;
-  margin-top: 10px;
+  margin: 15px 0;
   overflow-wrap: break-word;
 }
-
 
 .page-avatar {
   margin-right: 15px;
@@ -154,7 +155,6 @@ textarea {
 }
 
 .reply-to {
-  font-size: small;
   color: #657786 !important;
 }
 

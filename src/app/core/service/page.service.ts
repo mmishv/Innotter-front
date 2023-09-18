@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, BehaviorSubject, of} from 'rxjs';
 import env from "../../../environments/.env";
+import {Page} from "../model/page.model";
+import {Statistics} from "../model/statistics.model";
+import {Tag} from "../model/tag.model";
 
 const INNOTTER_URL = env.innotterUrl;
 const STATISTICS_URL = env.statisticsUrl;
@@ -16,18 +19,22 @@ const httpOptionsJSON = {
 export class PageService {
   private currentPageSubject = new BehaviorSubject<any>(null);
   private currentPageStatisticsSubject = new BehaviorSubject<any>(null);
-  currentPage$ = this.currentPageSubject.asObservable();
-  currentPageStatistics$ = this.currentPageStatisticsSubject.asObservable();
+  currentPage$: Observable<Page> = this.currentPageSubject.asObservable();
+  currentPageStatistics$: Observable<Statistics> = this.currentPageStatisticsSubject.asObservable();
 
   constructor(private http: HttpClient) {
   }
 
-  getUserPages(): Observable<any> {
-    return this.http.get<any>(INNOTTER_URL + `/pages/user/`, httpOptionsJSON);
+  getUserPages(userId=''): Observable<Page[]> {
+    if (userId != '') {
+        return this.http.get<Page[]>(INNOTTER_URL + `/pages/user/?user_uuid=${userId}`, httpOptionsJSON)
+    } else {
+      return this.http.get<Page[]>(INNOTTER_URL + `/pages/user/`, httpOptionsJSON);
+    }
   }
 
-  createPage(name: string, description: string): Observable<any> {
-    return this.http.post<any>(INNOTTER_URL + '/pages/', {
+  createPage(name: string, description: string): Observable<Page> {
+    return this.http.post<Page>(INNOTTER_URL + '/pages/', {
       name: name, description: description
     }, httpOptionsJSON);
   }
@@ -58,7 +65,7 @@ export class PageService {
   }
 
   loadPage(pageId: string) {
-    this.http.get<any>(INNOTTER_URL + `/pages/${pageId}/`, httpOptionsJSON).subscribe((data) => {
+    this.http.get<Page>(INNOTTER_URL + `/pages/${pageId}/`, httpOptionsJSON).subscribe((data) => {
       this.currentPageSubject.next(data);
     });
   }
@@ -66,7 +73,7 @@ export class PageService {
   loadStatistics() {
     const pageId = this.getSelectedPageId();
     if (pageId) {
-      this.http.get<any>(STATISTICS_URL + `/statistics/${pageId}/`, httpOptionsJSON).subscribe((data) => {
+      this.http.get<Statistics>(STATISTICS_URL + `/statistics/${pageId}/`, httpOptionsJSON).subscribe((data) => {
         this.currentPageStatisticsSubject.next(data);
       });
     } else {
@@ -89,8 +96,8 @@ export class PageService {
     return this.http.patch(`${INNOTTER_URL}/pages/${pageId}/toggle_visibility/`, httpOptionsJSON);
   }
 
-  getTags(): Observable<any[]> {
-    return this.http.get<any[]>(`${INNOTTER_URL}/tags/`);
+  getTags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(`${INNOTTER_URL}/tags/`);
   }
 
   addTagToPage(tagName: string): Observable<any> {
@@ -123,8 +130,8 @@ export class PageService {
     return this.http.post(`${INNOTTER_URL}/pages/${pageId}/reject_all_requests/`, httpOptionsJSON);
   }
 
-  searchPage(field: string): Observable<any> {
-    return this.http.get(`${INNOTTER_URL}/pages/?search=${field}`, httpOptionsJSON);
+  searchPage(field: string): Observable<Page[]> {
+    return this.http.get<Page[]>(`${INNOTTER_URL}/pages/?search=${field}`, httpOptionsJSON);
   }
 
   subscribe(pageId: string): Observable<any> {

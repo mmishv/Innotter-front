@@ -1,0 +1,28 @@
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.content-wrapper, .menu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.content-wrapper {
+  width: 70%;
+}
+
+.content {
+  margin-top: 5%;
+}
+
+.menu {
+  width: 30%;
+  padding: 20px;
+  background-color: white;
+}

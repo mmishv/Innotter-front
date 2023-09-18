@@ -3,7 +3,7 @@
     <ul>
       <ng-container *ngIf="users.length; else noUsers">
         <li *ngFor="let user of users" class="user">
-          <div class="user-content">
+          <div class="user-content" (click)="onClick(user.id)">
             <div class="user-image">
               <img
                 *ngIf="user.image_s3_path; else defaultImage"

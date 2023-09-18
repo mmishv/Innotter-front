@@ -2,9 +2,9 @@
   <div class="pages-container">
     <ul>
       <ng-container *ngIf="userPages.length; else noPages">
+        <div class="pages-text">Pages:</div>
         <li *ngFor="let page of userPages" class="page">
-          <div class="page-content" (click)="selectPage(page.id)"
-               [ngStyle]="{'background-color': page.id.toString() === getSelectedPageId() ? '#F0E4E4' : '#D9D9D9'}">
+          <div class="page-content" (click)="onClick(page.id)">
             <div class="page-image">
               <img
                 *ngIf="page.image_s3_path; else defaultImage"
@@ -18,14 +18,25 @@
               </ng-template>
             </div>
             <div class="page-info">
-              <span class="page-name" [ngClass]="{'text-ellipsis': page.name.length > 10}">{{ page.name }}</span><br>
-              <span class="page-uuid" [ngClass]="{'text-ellipsis': page.uuid.length > 18}">@{{ page.uuid }}</span>
+              <span class="page-name">{{ page.name }}</span>
+              <span class="page-uuid">@{{ page.uuid }}</span>
+              <div *ngIf="page.tags.length" class="tags">
+                <ul class="tag-list">
+                  <li class="tag-list-item" *ngFor="let tag of page.tags">
+                    <div class="tag-text" [title]="tag.name">#{{ tag.name }}</div>
+                  </li>
+                </ul>
+              </div>
+              <div class="bio">{{page.description}}</div>
             </div>
           </div>
         </li>
       </ng-container>
       <ng-template #noPages>
-        <div class="no-pages"> You haven't created any pages yet</div>
+        <div *ngIf="!isOwner" class="pages-text"> This user hasn't created any pages yet</div>
+        <div *ngIf="isOwner">
+          <create-page></create-page>
+        </div>
       </ng-template>
     </ul>
   </div>

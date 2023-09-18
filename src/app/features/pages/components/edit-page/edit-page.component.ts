@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {Observable} from "rxjs";
 import {PageService} from "../../../../core/service/page.service";
+import {Page} from "../../../../core/model/page.model";
+import {Tag} from "../../../../core/model/tag.model";
 
 @Component({
   selector: 'app-edit-page',
@@ -14,14 +16,14 @@ export class EditPageComponent {
   editPageForm: any = {
     name: null, uuid: null, description: null
   };
-  currentPage$: Observable<any>;
-  tags: any[] = [];
+  currentPage$: Observable<Page>;
+  tags: string[] = [];
   currentPage = 1;
   itemsPerPage = 8;
   showAllTags = false;
 
   constructor(private pageService: PageService) {
-    this.currentPage$ = new Observable<any>();
+    this.currentPage$ = new Observable<Page>();
   }
 
   ngOnInit() {
@@ -50,7 +52,7 @@ export class EditPageComponent {
   }
 
   isTagInPage(tagName: string): boolean {
-    let pageTags: any[] = [];
+    let pageTags: Tag[] = [];
     this.currentPage$.subscribe((data) => {
       pageTags = data.tags;
     });

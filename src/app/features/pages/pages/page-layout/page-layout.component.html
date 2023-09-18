@@ -8,9 +8,8 @@
       />
       <ng-template #defaultImage>
         <img class="avatar"
-             ngSrc="../../../../../assets/img/default_profile.jpg"
+             src="../../../../../assets/img/default_profile.jpg"
              alt="page image"
-             height="250" width="250"
         />
       </ng-template>
     </ng-template>
@@ -23,7 +22,7 @@
     </div>
   </div>
 </div>
-<div class="page-wrapper">
+<div class="page-wrapper" *ngIf="currentPage$ | async as currentPage">
   <div class="left-panel-wrapper">
     <div class="left-panel">
       <div class="menu" *ngIf="isCurrentPage()">
@@ -40,7 +39,7 @@
     </div>
   </div>
   <div class="content-wrapper">
-    <div class="content" *ngIf="currentPage$ | async as currentPage">
+    <div class="content">
       <div class="main-info">
         <div class="name-btn-container">
           <div class="page-name"><h1>{{currentPage.name}}</h1></div>
@@ -56,14 +55,12 @@
                                                                                                                  request
               </button>
             </div>
-            <div *ngIf="canUnsubscribe()">
-              <button (click)="onUnsubscribe(currentPage.id)" *ngIf="!currentPage.is_private" class="bezel-red-btn">
-                Unfollow
-              </button>
-              <button (click)="onUnsubscribe(currentPage.id)" *ngIf="currentPage.is_private" class="bezel-red-btn">
-                Cancel request
-              </button>
-            </div>
+            <button (click)="onUnsubscribe(currentPage.id)" *ngIf="canUnsubscribe()" class="bezel-red-btn">
+              Unfollow
+            </button>
+            <button (click)="onUnsubscribe(currentPage.id)" *ngIf="canCancelRequest()" class="bezel-red-btn">
+              Cancel request
+            </button>
           </div>
         </div>
         <div class="page-uuid"><h5>@{{currentPage.uuid}}</h5></div>
@@ -76,7 +73,7 @@
         </div>
         <div class="bio">{{currentPage.description}}</div>
       </div>
-      <div *ngIf="currentPage.is_private && !isOwner(); else posts" class="private-account">
+      <div *ngIf="currentPage.is_private && !canUnsubscribe() && !isOwner(); else posts" class="private-account">
         <h3>These account is private</h3>
         <h6>Only approved followers can see @{{currentPage.uuid}} posts. To request access click Send a request. </h6>
       </div>
@@ -85,11 +82,13 @@
           <app-create-post></app-create-post>
         </div>
       </ng-template>
-      <app-posts [posts]="currentPage.posts"></app-posts>
+      <div *ngIf="isOwner() || canUnsubscribe()">
+        <app-posts [posts]="currentPage.posts"></app-posts>
+      </div>
     </div>
   </div>
   <div class="right-panel-wrapper">
-    <div class="right-panel" *ngIf="currentPage$ | async as currentPage">
+    <div class="right-panel">
       <div>
         <app-tabs [page]="currentPage"></app-tabs>
       </div>
