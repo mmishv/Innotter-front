@@ -1,0 +1,15 @@
+<div class="posts">
+  <div class="posts-container">
+    <ul>
+      <ng-container *ngIf="posts.length; else noPosts">
+        <li *ngFor="let post of posts" class="post">
+          <app-post [userData]="userData" [post]="post"></app-post>
+        </li>
+      </ng-container>
+      <ng-template #noPosts>
+        <div class="no-posts"><h6>There's nothing here yet</h6></div>
+      </ng-template>
+    </ul>
+  </div>
+</div>
+

@@ -1,0 +1,26 @@
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.left-panel-wrapper, .content-wrapper, .right-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  padding: 0 20px;
+}
+
+.content-wrapper {
+  width: 50%;
+  padding: 0 30px;
+}
+
+.left-panel-wrapper {
+  width: 20%;
+}
+
+.right-panel-wrapper {
+  width: 30%;
+}

@@ -1,0 +1,160 @@
+.post-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.page-name {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.page-uuid {
+  color: #ABABAB;
+  font-size: 18px;
+}
+
+.post-timestamp {
+  font-size: small;
+  color: #657786;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+.main {
+  flex-grow: 1;
+  max-width: 39vw;
+}
+
+.post-text {
+  font-size: 16px;
+  font-weight: 400;
+  margin-right: 10px;
+  margin-top: 10px;
+  overflow-wrap: break-word;
+}
+
+
+.page-avatar {
+  margin-right: 15px;
+  flex-shrink: 0;
+  width: 8vh;
+  height: 8vh;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.actions-bar {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-around;
+}
+
+.main-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  align-items: baseline;
+}
+
+h6 {
+  color: #ABABAB;
+  margin-top: 20px;
+}
+
+.indicators {
+  align-items: center;
+  display: inline-flex;
+}
+
+.indicator-value {
+  color: #657786;
+  position: relative;
+  margin-left: 7px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.options {
+  position: relative;
+}
+
+.options-menu {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 10%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: smaller;
+}
+
+li {
+  border: 1px solid #e1e8ed;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+textarea {
+  border: none;
+  resize: none;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+  max-height: 20vh;
+  min-height: 10vh;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+}
+
+
+.edit-btn {
+  background: none;
+  cursor: pointer;
+  color: #E10C0C;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+.save-btn {
+  border: 2px solid #E10C0C;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+.cancel-btn {
+  border: none;
+}
+
+.reply-to {
+  font-size: small;
+  color: #657786 !important;
+}
+

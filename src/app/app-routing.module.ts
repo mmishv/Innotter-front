@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'home', component: HomeLayoutComponent, canActivate: [AuthGuard]},
   { path: 'page', canActivate: [AuthGuard],
   loadChildren: () => import( "./features/pages/pages.module").then(m => m.PageModule)},
-  { path: '**', redirectTo: '', pathMatch: 'full'}];
+  { path: '**', redirectTo: '', pathMatch: 'full'}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)], exports: [RouterModule],

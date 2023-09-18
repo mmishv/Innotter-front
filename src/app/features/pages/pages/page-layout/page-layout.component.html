@@ -45,7 +45,6 @@
         <div class="name-btn-container">
           <div class="page-name"><h1>{{currentPage.name}}</h1></div>
           <div *ngIf="isCurrentPage()" class="btn-container">
-            <button class="bezel-red-btn">New post</button>
             <app-edit-page></app-edit-page>
           </div>
           <div *ngIf="!isCurrentPage()" class="btn-container">
@@ -75,12 +74,18 @@
             </li>
           </ul>
         </div>
-        <div class="bio"><h6>{{currentPage.description}} </h6></div>
+        <div class="bio">{{currentPage.description}}</div>
       </div>
-      <div *ngIf="currentPage.is_private && !isOwner()" class="private-account">
+      <div *ngIf="currentPage.is_private && !isOwner(); else posts" class="private-account">
         <h3>These account is private</h3>
         <h6>Only approved followers can see @{{currentPage.uuid}} posts. To request access click Send a request. </h6>
       </div>
+      <ng-template #posts>
+        <div *ngIf="isCurrentPage()">
+          <app-create-post></app-create-post>
+        </div>
+      </ng-template>
+      <app-posts [posts]="currentPage.posts"></app-posts>
     </div>
   </div>
   <div class="right-panel-wrapper">

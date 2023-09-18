@@ -1,0 +1,15 @@
+<form
+  name="form"
+  (ngSubmit)="f.form.valid && onSubmit()"
+  #f="ngForm"
+  novalidate
+>
+  <div class="form-field">
+    <textarea name="content" [placeholder]="!reply ? 'What\'s new?' : 'Post your reply'"
+              [(ngModel)]="createPostForm.text"
+              maxlength="180" required> </textarea>
+  </div>
+  <div class="confirm-bar">
+    <button class="btn bezel-red-btn">Post</button>
+  </div>
+</form>

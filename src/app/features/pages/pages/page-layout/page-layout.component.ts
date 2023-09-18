@@ -9,7 +9,10 @@ import {UserService} from "../../../../core/service/user.service";
 @Component({
   selector: 'app-home-layout',
   templateUrl: './page-layout.component.html',
-  styleUrls: ['./page-layout.component.scss', '../../../../styles/buttons.scss', '../../../../styles/scrollbar.scss']
+  styleUrls: ['./page-layout.component.scss',
+    '../../../../styles/buttons.scss',
+    '../../../../styles/scrollbar.scss',
+    '../../../../styles/page-frame.scss']
 })
 
 export class PageLayoutComponent implements OnInit {
