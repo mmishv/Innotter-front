@@ -27,8 +27,8 @@ interface UserResetPassword {
   providedIn: 'root'
 })
 export class AuthService {
-  accessToken = '';
-  refreshToken = '';
+  private accessToken = '';
+  private refreshToken = '';
 
   constructor(private http: HttpClient) {
   }
