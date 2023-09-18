@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'home', component: HomeLayoutComponent, canActivate: [AuthGuard]},
   { path: 'page', canActivate: [AuthGuard],
   loadChildren: () => import( "./features/pages/pages.module").then(m => m.PageModule)},
+  { path: 'user', canActivate: [AuthGuard],
+  loadChildren: () => import( "./features/users/user.module").then(m => m.UserModule)},
   { path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
