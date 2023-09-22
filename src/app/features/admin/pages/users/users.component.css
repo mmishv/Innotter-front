@@ -1,0 +1,35 @@
+.button-container {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #657786;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.select-box {
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 2px;
+  color: #474A51;
+}
+
+.select-box option {
+  font-size: smaller;
+}
+
+.select-box option:checked {
+  font-weight: bold;
+}

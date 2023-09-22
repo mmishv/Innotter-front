@@ -1,0 +1,47 @@
+h3 {
+  color: #657786;
+  margin: 2% 0;
+}
+
+.scroll-table {
+  margin: auto;
+  background-color: white;
+  font-size: larger;
+}
+
+.scroll-table td, .scroll-table th, tr {
+  text-align: center;
+  vertical-align: middle;
+  border: solid 2px #657786;
+  color: #474A51;
+}
+
+.scroll-table th {
+  font-weight: 500;
+  border: solid 2px #657786;
+}
+
+.scroll-table-body {
+  max-height: 70vh;
+  overflow-x: auto;
+}
+
+.scroll-table table {
+  width: 100%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.form-control:focus {
+  outline: none !important;
+  border: none;
+}
+
+.search {
+  width: 50%;
+  margin-left: 0;
+}
