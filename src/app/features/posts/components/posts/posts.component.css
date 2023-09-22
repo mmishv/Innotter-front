@@ -27,7 +27,8 @@
 }
 
 .no-posts {
-  font-size: xx-large;
-  font-weight: 500;
+  margin-top: 20px;
+  font-size: large;
+  font-weight: 600;
   color: #657786;
 }
