@@ -4,6 +4,7 @@ import {HomeLayoutComponent} from "./layout/home-layout/home-layout.component";
 import {AuthGuard} from "./core/guard/auth.guard";
 import {NoAuthGuard} from "./core/guard/no-auth.guard";
 import {ResetPasswordComponent} from "./features/auth/components/reset-password/reset-password.component";
+import {AdminModeratorGuard} from "./core/guard/admin-moderator.guard";
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full'},
@@ -15,6 +16,8 @@ const routes: Routes = [
   loadChildren: () => import( "./features/pages/pages.module").then(m => m.PageModule)},
   { path: 'user', canActivate: [AuthGuard],
   loadChildren: () => import( "./features/users/user.module").then(m => m.UserModule)},
+  { path: 'admin-panel', canActivate: [AdminModeratorGuard],
+    loadChildren: () => import( "./features/admin/admin.module").then(m => m.AdminModule)},
   { path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
