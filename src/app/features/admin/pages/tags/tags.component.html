@@ -1,0 +1,49 @@
+<div class="page-wrapper" *ngIf="currentUser$ | async as currentUser">
+  <div class="content-wrapper">
+    <div class="content">
+      <div class="col-sm-12 us">
+        <h3 class="header">Tags</h3>
+        <div class="form-group">
+          <input class="form-control search" placeholder="Search by name..."
+                 autocomplete="off" type="text" [(ngModel)]="searchText" (input)="searchTags()">
+          <input class="form-control new-tag" [(ngModel)]="createTagForm.name" (keydown.enter)="createTag()"
+                 placeholder="Enter a name to create a new tag">
+        </div>
+        <div class="scroll-table">
+          <div class="scroll-table-body">
+            <table class="table users" id="table-search" aria-describedby="users">
+              <thead>
+              <tr>
+                <th scope="col" style="width: 10%; background-color: #F5F5F5;">№</th>
+                <th scope="col" style="width: 50%; background-color: #F5F5F5;">Name</th>
+                <th scope="col" style="width: 40%; background-color: #F5F5F5;">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let tag of tags$ | async as users; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{tag.name}}</td>
+                <td>
+                  <div class="control-buttons">
+                    <button title="Delete tag" name="delete">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red"
+                           class="bi bi-x-circle" viewBox="0 0 16 16" (click)="deleteTag(tag.id)">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path
+                          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu">
+    <app-admin-navbar [isAdmin]="currentUser.role == 'ADMIN'"></app-admin-navbar>
+  </div>
+</div>

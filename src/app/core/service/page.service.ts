@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, BehaviorSubject, of} from 'rxjs';
 import env from "../../../environments/.env";
 import {Page} from "../model/page.model";
 import {Statistics} from "../model/statistics.model";
 import {Tag} from "../model/tag.model";
+import {Group} from "../model/group.model";
 
 const INNOTTER_URL = env.innotterUrl;
 const STATISTICS_URL = env.statisticsUrl;
@@ -25,9 +26,9 @@ export class PageService {
   constructor(private http: HttpClient) {
   }
 
-  getUserPages(userId=''): Observable<Page[]> {
+  getUserPages(userId = ''): Observable<Page[]> {
     if (userId != '') {
-        return this.http.get<Page[]>(INNOTTER_URL + `/pages/user/?user_uuid=${userId}`, httpOptionsJSON)
+      return this.http.get<Page[]>(INNOTTER_URL + `/pages/user/?user_uuid=${userId}`, httpOptionsJSON)
     } else {
       return this.http.get<Page[]>(INNOTTER_URL + `/pages/user/`, httpOptionsJSON);
     }
@@ -140,6 +141,22 @@ export class PageService {
 
   unsubscribe(pageId: string): Observable<any> {
     return this.http.post(`${INNOTTER_URL}/pages/${pageId}/unsubscribe/`, httpOptionsJSON);
+  }
+
+  setPageBlockPeriod(pageId: string, period: number = -1): Observable<any> {
+    let params = new HttpParams();
+    if (period != -1) {
+      params = params.set('days', period);
+    }
+    return this.http.patch(`${INNOTTER_URL}/pages/${pageId}/block/`, {}, {headers: httpOptionsJSON.headers, params});
+  }
+
+  createTag(name: string): Observable<Group> {
+    return this.http.post<Group>(`${INNOTTER_URL}/tags/`, {name: name}, httpOptionsJSON);
+  }
+
+  deleteTag(tagId: number): Observable<any> {
+    return this.http.delete(`${INNOTTER_URL}/tags/${tagId}`, httpOptionsJSON);
   }
 }
 

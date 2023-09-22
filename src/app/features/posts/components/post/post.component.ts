@@ -2,6 +2,8 @@ import {ChangeDetectorRef, Component, ElementRef, HostListener, Input, ViewChild
 import {PostService} from "../../../../core/service/posts.service";
 import {Router} from "@angular/router";
 import {PageService} from "../../../../core/service/page.service";
+import {Post} from "../../../../core/model/post.model";
+import {User} from "../../../../core/model/user.model";
 
 @Component({
   selector: 'app-post',
@@ -12,8 +14,8 @@ import {PageService} from "../../../../core/service/page.service";
 })
 export class PostComponent {
   @ViewChild('optionsContainer') elRef!: ElementRef;
-  @Input() post: any;
-  @Input() userData: any;
+  @Input() post!: Post;
+  @Input() userData!: User;
   showOptions = false;
   isEditing = false;
   editedContent = '';
@@ -38,7 +40,7 @@ export class PostComponent {
     }
   }
 
-  isUpdatedLessThanTenSecondsAgo(updatedAt: string, createdAt: string): boolean {
+  isUpdatedLessThanTenSecondsAgo(updatedAt: Date, createdAt: Date): boolean {
     const updatedDate = new Date(updatedAt);
     const createdDate = new Date(createdAt);
     const timeDifferenceMilliseconds = updatedDate.getTime() - createdDate.getTime();
@@ -54,10 +56,8 @@ export class PostComponent {
 
   likePost(pageId: string, postId: string) {
     this.postService.likePost(pageId, postId).subscribe(() => {
-      this.postService.getPost(pageId, postId).subscribe(data => {
-        this.post.liked_by = data.liked_by;
-        this.cdRef.detectChanges();
-      })
+      this.post.liked_by.push(this.userData.id);
+      this.cdRef.detectChanges();
     }, err => {
       console.log(err);
     });
@@ -65,10 +65,11 @@ export class PostComponent {
 
   unlikePost(pageId: string, postId: string) {
     this.postService.unlikePost(pageId, postId).subscribe(() => {
-      this.postService.getPost(pageId, postId).subscribe(data => {
-        this.post.liked_by = data.liked_by;
+        const indexToRemove = this.post.liked_by.indexOf(this.userData.id);
+        if (indexToRemove !== -1) {
+          this.post.liked_by.splice(indexToRemove, 1);
+        }
         this.cdRef.detectChanges();
-      })
     }, err => {
       console.log(err);
     });

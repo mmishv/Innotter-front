@@ -7,4 +7,5 @@ import {Component, Input} from '@angular/core';
 })
 export class AccountPanelComponent {
  @Input() userId: string = '';
+ @Input() isAdmin: boolean = false;
 }

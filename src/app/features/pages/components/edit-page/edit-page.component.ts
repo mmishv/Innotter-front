@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {Observable} from "rxjs";
 import {PageService} from "../../../../core/service/page.service";
 import {Page} from "../../../../core/model/page.model";
-import {Tag} from "../../../../core/model/tag.model";
 
 @Component({
   selector: 'app-edit-page',
@@ -18,11 +17,13 @@ export class EditPageComponent {
   };
   currentPage$: Observable<Page>;
   tags: string[] = [];
+  pageTags: string[] = [];
+
   currentPage = 1;
   itemsPerPage = 8;
   showAllTags = false;
 
-  constructor(private pageService: PageService) {
+  constructor(private pageService: PageService, private cdRef: ChangeDetectorRef) {
     this.currentPage$ = new Observable<Page>();
   }
 
@@ -31,6 +32,7 @@ export class EditPageComponent {
     this.pageService.loadCurrentPage();
     this.currentPage$.subscribe((data) => {
       this.editPageForm = Object.assign({}, data);
+      this.pageTags = data.tags.map(tag => tag.name);
     });
     this.pageService.getTags().subscribe(tags => {
       this.tags = tags.map(tag => tag.name);
@@ -52,31 +54,32 @@ export class EditPageComponent {
   }
 
   isTagInPage(tagName: string): boolean {
-    let pageTags: Tag[] = [];
-    this.currentPage$.subscribe((data) => {
-      pageTags = data.tags;
-    });
-    return pageTags.some((tag: { name: string; }) => tag.name === tagName);
+    return this.pageTags.some(tag => tag == tagName);
   }
 
   tagClickHandler(tagName: string) {
     if (!this.isTagInPage(tagName)) {
       this.pageService.addTagToPage(tagName).subscribe(response => {
+        this.pageTags.push(tagName);
+        this.cdRef.detectChanges();
       }, error => {
         console.error(`Failed to add tag '${tagName}' to the page.`, error);
       });
     } else {
       this.pageService.removeTagFromPage(tagName).subscribe(response => {
+        const indexToRemove = this.pageTags.indexOf(tagName);
+        if (indexToRemove !== -1) {
+          this.pageTags.splice(indexToRemove, 1);
+        }
+        this.cdRef.detectChanges();
       }, error => {
         console.error(`Failed to remove tag '${tagName}' from the page.`, error);
       });
     }
-    this.pageService.loadCurrentPage();
   }
 
   onSubmit() {
     const {name, uuid, description} = this.editPageForm;
-    console.log(name);
     this.pageService.updatePageMainInfo(name, description, uuid).subscribe((data) => {
       this.pageService.loadCurrentPage();
     }, err => {

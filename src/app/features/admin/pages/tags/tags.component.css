@@ -1,0 +1,17 @@
+.new-tag{
+  width: 40%;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border: 2px solid #657786;
+  border-bottom: 4px solid #657786;
+  font-size: larger;
+}
+
+.form-control{
+  margin-bottom: 10px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+}

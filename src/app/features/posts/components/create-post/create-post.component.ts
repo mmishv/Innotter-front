@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {PostService} from "../../../../core/service/posts.service";
+import {PageService} from "../../../../core/service/page.service";
 
 @Component({
   selector: 'app-create-post',
@@ -17,17 +18,19 @@ export class CreatePostComponent {
     text: null,
   };
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private pageService: PageService) {
   }
 
   onSubmit(): void {
     const {text} = this.createPostForm;
-    const createObservable = this.reply ?
-      this.postService.createReply(this.pageId, this.postId, text) : this.postService.createPost(text);
-    createObservable.subscribe(() => {
-      location.reload();
-    }, (err) => {
-      console.log(err);
-    });
+    const pageId = this.pageService.getSelectedPageId();
+    if (pageId) {
+      const createObservable = this.reply ? this.postService.createReply(pageId, this.postId, text) : this.postService.createPost(text);
+      createObservable.subscribe(() => {
+        location.reload();
+      }, (err) => {
+        console.log(err);
+      });
+    }
   }
 }

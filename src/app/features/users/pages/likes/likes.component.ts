@@ -8,14 +8,19 @@ import {UserService} from "../../../../core/service/user.service";
   templateUrl: './likes.component.html',
   styleUrls: ['./likes.component.css', '../../../../styles/account-frame.scss']
 })
-export class LikesComponent implements OnInit{
+export class LikesComponent implements OnInit {
   likedPosts: Post[] = []
   userId: string = '';
+  isAdminOrModerator: boolean = false;
+
   constructor(private postService: PostService, private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.postService.getLikes().subscribe(posts => this.likedPosts = posts);
-    this.userService.getCurrentUserData().subscribe(data => this.userId = data.id);
+    this.userService.getCurrentUserData().subscribe(data => {
+      this.userId = data.id;
+      this.isAdminOrModerator = data.role == 'ADMIN' || data.role == 'MODERATOR';
+    });
   }
 }

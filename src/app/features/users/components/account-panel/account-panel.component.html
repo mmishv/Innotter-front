@@ -1,5 +1,7 @@
 <div class="menu">
   <ul>
+    <li *ngIf="isAdmin"><a href="admin-panel/users">
+      <span>Admin-panel</span></a></li>
     <li><a href="user/{{userId}}">
       <span class="icon-text">Account</span></a></li>
     <li><a href="user/{{userId}}/likes">

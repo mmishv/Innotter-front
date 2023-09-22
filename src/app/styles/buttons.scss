@@ -20,3 +20,20 @@
   outline: none;
   margin-top: 5px;
 }
+
+.control-buttons {
+  display: flex;
+  justify-content: space-around;
+  vertical-align: middle;
+}
+
+.control-buttons button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 2.5rem;
+}
+
+.control-buttons svg {
+  vertical-align: middle;
+}

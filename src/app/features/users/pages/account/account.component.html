@@ -1,13 +1,13 @@
 <div class="page-wrapper" *ngIf="userData !== undefined">
   <div class="content-wrapper">
-     <div *ngIf="!isOwner" class="back-panel">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left"
-             viewBox="0 0 16 16" (click)="goBack()">
-          <path fill-rule="evenodd"
-                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-        </svg>
-        <h2>User</h2>
-      </div>
+    <div *ngIf="!isOwner" class="back-panel">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left"
+           viewBox="0 0 16 16" (click)="goBack()">
+        <path fill-rule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg>
+      <h2>User</h2>
+    </div>
     <div class="content">
       <div class="main-info">
         <div class="avatar-wrapper">
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="info">
-          <ng-container *ngIf="isOwner && isEditing; else notEditing">
+          <ng-container *ngIf="(isOwner || isAdmin) && isEditing; else notEditing">
             <ng-container *ngFor="let field of editUserFields">
               <div style="display: flex; flex-direction: row;">
                 <div class="user-field">
@@ -61,7 +61,8 @@
             <label>Date of creation:</label>
             <span>{{ userData.created_at | date:'MMMM d, yyyy' }}</span>
           </div>
-          <svg *ngIf="isOwner && !isEditing" (click)="enterEditMode()" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+          <svg *ngIf="(isOwner || isAdmin) && !isEditing" (click)="enterEditMode()" xmlns="http://www.w3.org/2000/svg" width="25"
+               height="25"
                fill="currentColor" class="bi bi-pencil-square edit-icon" viewBox="0 0 16 16">
             <path
               d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -70,7 +71,7 @@
           </svg>
           <div class="edit-options edit-buttons" *ngIf="isEditing">
             <button class="edit-btn" (click)="exitEditMode()">Cancel</button>
-            <button class="edit-btn save-btn" (click)="editUserInfo()">Save</button>
+            <button class="edit-btn save-btn" (click)="editUserInfo(userData.id)">Save</button>
           </div>
         </div>
       </div>
@@ -80,6 +81,6 @@
     </div>
   </div>
   <div *ngIf="isOwner" class="menu">
-    <app-account-panel [userId]="userData.id"></app-account-panel>
+    <app-account-panel [userId]="userData.id" [isAdmin]="isAdmin"></app-account-panel>
   </div>
 </div>
