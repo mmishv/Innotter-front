@@ -38,7 +38,7 @@
       <a href="/home">Home</a>
     </div>
   </div>
-  <div class="content-wrapper">
+  <div class="content-wrapper" *ngIf="userData != undefined">
     <div class="content">
       <div class="main-info">
         <div class="name-btn-container">
@@ -73,7 +73,9 @@
         </div>
         <div class="bio">{{currentPage.description}}</div>
       </div>
-      <div *ngIf="currentPage.is_private && !canUnsubscribe() && !isOwner(); else posts" class="private-account">
+      <div
+        *ngIf="currentPage.is_private && !canUnsubscribe() && !isOwner() && userData.role != 'ADMIN' && userData.role !='MODERATOR'; else posts"
+        class="private-account">
         <h3>These account is private</h3>
         <h6>Only approved followers can see @{{currentPage.uuid}} posts. To request access click Send a request. </h6>
       </div>
@@ -81,10 +83,8 @@
         <div *ngIf="isCurrentPage()">
           <app-create-post></app-create-post>
         </div>
-      </ng-template>
-      <div *ngIf="isOwner() || canUnsubscribe()">
         <app-posts [posts]="currentPage.posts"></app-posts>
-      </div>
+      </ng-template>
     </div>
   </div>
   <div class="right-panel-wrapper">

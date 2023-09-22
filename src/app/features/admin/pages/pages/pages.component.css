@@ -1,0 +1,15 @@
+.select-box {
+  width: 50%;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 2px;
+  color: #474A51;
+  font-size: smaller;
+}
+
+.select-box option {
+  font-size: small;
+  width: 100%;
+}

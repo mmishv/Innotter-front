@@ -1,0 +1,81 @@
+<div class="page-wrapper" *ngIf="currentUser$ | async as currentUser">
+  <div class="content-wrapper">
+    <div class="content">
+      <div class="col-sm-12 us">
+        <h3 class="header">Pages</h3>
+        <div class="form-group">
+          <input class="form-control search" placeholder="Search by username..."
+                 autocomplete="off" type="text" [(ngModel)]="searchQuery" (keydown.enter)="getPages()">
+        </div>
+        <div class="scroll-table">
+          <div class="scroll-table-body">
+            <table class="table users" id="table-search" aria-describedby="users">
+              <thead>
+              <tr>
+                <th scope="col" style="width: 5%; background-color: #F5F5F5;">№</th>
+                <th scope="col" style="width: 15%; background-color: #F5F5F5;">Name</th>
+                <th scope="col" style="width: 20%; background-color: #F5F5F5;">UUID</th>
+                <th scope="col" style="width: 10%; background-color: #F5F5F5;">Visibility</th>
+                <th scope="col" style="width: 25%; background-color: #F5F5F5;">Unblock date</th>
+                <th scope="col" style="width: 25%; background-color: #F5F5F5;">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let page of pages$ | async as users; let i = index">
+                <td>{{i + 1}}</td>
+                <td><a href="page/{{page.id}}">{{page.name}}</a></td>
+                <td style="font-size: small;">{{page.uuid}}</td>
+                <td>
+                  <div class="control-buttons">
+                    <ng-container *ngIf="page.is_private; else publicPage">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#474A51"
+                           class="bi bi-lock" viewBox="0 0 16 16">
+                        <path
+                          d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    </ng-container>
+                    <ng-template #publicPage>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#474A51"
+                           class="bi bi-unlock" viewBox="0 0 16 16">
+                        <path
+                          d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+                      </svg>
+                    </ng-template>
+                  </div>
+                </td>
+                <td>{{page.unblock_date | date:'HH:mm MMM d, yyyy'}}</td>
+                <td>
+                  <div class="control-buttons">
+                    <select *ngIf="showTimePickers[i]" (click)="onTimeSelected($event, page.id, i)" class="select-box">
+                      <option value="1">1 day</option>
+                      <option value="3">3 days</option>
+                      <option value="7">1 week</option>
+                      <option value="30">1 month</option>
+                      <option value="365">1 year</option>
+                      <option value="-1">in perpetuity</option>
+                      <option value="0">unblock</option>
+                    </select>
+                    <button type="submit" title="Block page" name="block"
+                            (click)="showTimePickers[i] = !showTimePickers[i]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#474A51"
+                           class="bi bi-calendar-week" viewBox="0 0 16 16">
+                        <path
+                          d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                        <path
+                          d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu">
+    <app-admin-navbar [isAdmin]="currentUser.role == 'ADMIN'"></app-admin-navbar>
+  </div>
+</div>
