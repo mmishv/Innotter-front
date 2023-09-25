@@ -13,16 +13,17 @@ import {PageLayoutComponent} from "./features/pages/pages/page-layout/page-layou
 import {NgOptimizedImage} from "@angular/common";
 import {AuthLayoutComponent} from "./layout/auth-layout/auth-layout.component";
 import { AccountComponent } from './features/users/pages/account/account.component';
-import {UserModule} from "./features/users/user.module";
 import {PostsModule} from "./features/posts/posts.module";
+import {UserModule} from "./features/users/user.module";
 
 @NgModule({
-  declarations: [AppComponent, AuthLayoutComponent, HomeLayoutComponent, PageLayoutComponent, AccountComponent,],
+  declarations: [AppComponent, AuthLayoutComponent, HomeLayoutComponent, PageLayoutComponent, AccountComponent],
   imports: [BrowserModule, AuthModule, AppRoutingModule, BrowserAnimationsModule,
-    FormsModule, HttpClientModule, PageModule, NgOptimizedImage, UserModule, PostsModule],
+    FormsModule, HttpClientModule, PageModule, NgOptimizedImage, PostsModule, UserModule],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true,
   },],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

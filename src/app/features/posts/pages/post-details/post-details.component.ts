@@ -3,6 +3,7 @@ import {PostService} from "../../../../core/service/posts.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../../../core/service/user.service";
 import {Location} from '@angular/common';
+import {PageService} from "../../../../core/service/page.service";
 
 @Component({
   selector: 'app-post-details',
@@ -15,7 +16,7 @@ export class PostDetailsComponent implements OnInit {
   postId: string = '';
   userData: any;
 
-  constructor(private postService: PostService, private route: ActivatedRoute,
+  constructor(private postService: PostService, private route: ActivatedRoute, protected pageService: PageService,
               private userService: UserService, private location: Location) {
   }
 
@@ -32,5 +33,9 @@ export class PostDetailsComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  isPageSelected(): boolean {
+    return this.pageService.getSelectedPageId() !== null;
   }
 }

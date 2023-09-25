@@ -106,4 +106,8 @@ export class PostComponent {
     this.isEditing = true;
     this.editedContent = this.post.content;
   }
+
+  isPageSelected(): boolean {
+    return this.pageService.getSelectedPageId() !== null;
+  }
 }

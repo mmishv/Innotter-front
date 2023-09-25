@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {Observable} from "rxjs";
 import {PageService} from "../../../../core/service/page.service";
 import {Page} from "../../../../core/model/page.model";
@@ -23,7 +23,7 @@ export class EditPageComponent {
   itemsPerPage = 8;
   showAllTags = false;
 
-  constructor(private pageService: PageService, private cdRef: ChangeDetectorRef) {
+  constructor(private pageService: PageService) {
     this.currentPage$ = new Observable<Page>();
   }
 
@@ -61,7 +61,7 @@ export class EditPageComponent {
     if (!this.isTagInPage(tagName)) {
       this.pageService.addTagToPage(tagName).subscribe(response => {
         this.pageTags.push(tagName);
-        this.cdRef.detectChanges();
+        this.pageService.loadCurrentPage();
       }, error => {
         console.error(`Failed to add tag '${tagName}' to the page.`, error);
       });
@@ -71,7 +71,7 @@ export class EditPageComponent {
         if (indexToRemove !== -1) {
           this.pageTags.splice(indexToRemove, 1);
         }
-        this.cdRef.detectChanges();
+        this.pageService.loadCurrentPage();
       }, error => {
         console.error(`Failed to remove tag '${tagName}' from the page.`, error);
       });

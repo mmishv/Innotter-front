@@ -11,11 +11,12 @@ import {PostsRoutingModule} from "./posts.routing";
 import {PostDetailsComponent} from "./pages/post-details/post-details.component";
 import {PostComponent} from './components/post/post.component';
 import {PageModule} from "../pages/pages.module";
+import {NavbarComponent} from "../../layout/navbar/navbar.component";
 
 
 @NgModule({
-  declarations: [CreatePostComponent, PostsComponent, PostDetailsComponent, PostComponent],
-  exports: [CreatePostComponent, PostsComponent],
+  declarations: [CreatePostComponent, PostsComponent, PostDetailsComponent, PostComponent, NavbarComponent],
+  exports: [CreatePostComponent, PostsComponent, NavbarComponent],
   imports: [PostsRoutingModule, FormsModule, HttpClientModule, NgIf, NgForOf, NgOptimizedImage,
     NgClass, NgStyle, AsyncPipe, SlicePipe, NgTemplateOutlet, DatePipe, PageModule]
 })
