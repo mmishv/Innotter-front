@@ -1,0 +1,38 @@
+<div class="page-wrapper">
+  <div class="left-panel-wrapper">
+    <div class="left-panel">
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <div class="content" *ngIf="postData">
+      <div class="back-panel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left"
+             viewBox="0 0 16 16" (click)="goBack()">
+          <path fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>
+        <h2>Post</h2>
+      </div>
+      <app-post [post]="postData" [userData]="userData"></app-post>
+      <div *ngIf="isPageSelected()">
+        <app-create-post [reply]="true" [postId]="postData.id" [pageId]="postData.page.id"></app-create-post>
+      </div>
+      <div class="replies-container">
+        <ng-container *ngIf="postData.replies.length; else noReplies">
+          <app-posts [posts]="postData.replies"></app-posts>
+        </ng-container>
+        <ng-template #noReplies>
+          <div *ngIf="isPageSelected()" class="no-posts">There's nothing here yet, be the first to start the discussion!</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="right-panel-wrapper">
+    <div class="right-panel">
+      <div class="likes-container">
+        <div class="likes-panel"><h4>Likes: </h4></div>
+        <app-users-list *ngIf="postData" [usersUuid]="postData.liked_by"></app-users-list>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+.content-wrapper {
+  width: 60%!important;
+}
+
+.left-panel-wrapper {
+  width: 10% !important;
+}
+
+.likes-container {
+  background-color: #F0E4E4;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 5%;
+}
+
+.back-panel, .likes-panel {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+
+.no-posts {
+  color: #ABABAB;
+}
+
+.replies-container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: 0;
+}

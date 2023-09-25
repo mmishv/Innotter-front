@@ -1,0 +1,94 @@
+.avatar {
+  border-radius: 2%;
+  width: 35vh;
+  height: 35vh;
+  margin: 15px;
+}
+
+.main-info {
+  background-color: white;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  border: 3px solid #657786;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.info {
+  width: 100%;
+  margin: 0 10px;
+  padding: 10px 15px 0 15px;
+  font-size: larger;
+}
+
+.user-field {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+
+.user-field label {
+  display: inline-block;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.user-field span {
+  display: inline-block;
+  font-weight: 800;
+  margin-left: 10px;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+}
+
+.edit-btn {
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  color: #E10C0C;
+  border: none;
+}
+
+.save-btn {
+  background: white;
+  border: 2px solid #E10C0C !important;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: 0;
+  width: 70%;
+}
+
+.back-panel {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 50px;
+}
+
+h2 {
+  margin-bottom: 0;
+  margin-left: 20px;
+}

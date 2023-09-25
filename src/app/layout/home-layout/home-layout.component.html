@@ -1,0 +1,67 @@
+<div class="page-wrapper">
+  <div class="left-panel-wrapper">
+    <div class="left-panel">
+      <app-navbar [pageId]="pageService.getSelectedPageId() ?? ''" [userId]="userId"></app-navbar>
+      <h5>Your pages:</h5>
+      <user-pages></user-pages>
+      <div class="text-right">
+        <create-page></create-page>
+      </div>
+    </div>
+    <div class="logout-btn-wrapper">
+      <logout-btn></logout-btn>
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <h3 style="color: #657786; margin-top: 20px;">For you</h3>
+    <div *ngIf="isPageSelected()">
+      <app-create-post></app-create-post>
+    </div>
+    <div class="content" *ngIf="newsFeed$ | async as newsFeed">
+      <app-posts [posts]="newsFeed"></app-posts>
+    </div>
+  </div>
+  <div class="right-panel-wrapper">
+    <div class="search">
+      <div class="search-container">
+        <div class="search-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#E10C0C" class="bi bi-search"
+               viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search..."
+            [(ngModel)]="searchQuery"
+            (keydown.enter)="onSearch()"
+          />
+        </div>
+      </div>
+      <div class="search-explanation">
+        <p>Try searching for pages by name, uuid or tags</p>
+      </div>
+    </div>
+    <div #searchResultsContainer class="search-results" *ngIf="searchResult">
+      <div class="search-result-item" *ngFor="let result of searchResult">
+        <a [routerLink]="['/page', result.id]">{{ result.name }} @{{ result.uuid }}</a>
+      </div>
+    </div>
+    <div class="search-tags">
+      <h5>Page tags (click on to search)</h5>
+      <input class="search-tags-input" type="text" [(ngModel)]="searchTag" (input)="onTagSearch()"
+             placeholder="Search by tag" maxlength="50">
+      <div class="tags">
+        <ul class="tag-list">
+          <li class="tag-list-item" *ngFor="let tag of filteredTags" (click)="activateTagSearch(tag)">
+            <div class="tag-text" [title]="tag">{{ tag }}</div>
+            <div class="tag-tooltip">{{ tag }}</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+

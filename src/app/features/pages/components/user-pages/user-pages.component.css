@@ -1,0 +1,67 @@
+.user-pages {
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
+.page {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.page-content {
+  display: flex;
+  border-radius: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 5px;
+}
+
+.page-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.page-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-name.text-ellipsis,
+.page-uuid.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(18ch + 1rem);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.page-name.text-ellipsis {
+  max-width: calc(12ch + 1rem);
+}
+
+.page-name {
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.page-uuid {
+  color: #ABABAB;
+  font-size: 15px;
+}
+
+ul {
+  padding-left: 0;
+  padding-right: 5px;
+}
+
+.no-pages {
+  font-size: 15px;
+  font-weight: bolder;
+  color: #ABABAB;
+}

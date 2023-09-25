@@ -1,0 +1,86 @@
+<div class="page-wrapper" *ngIf="userData !== undefined">
+  <div class="content-wrapper">
+    <div *ngIf="!isOwner" class="back-panel">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left"
+           viewBox="0 0 16 16" (click)="goBack()">
+        <path fill-rule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg>
+      <h2>User</h2>
+    </div>
+    <div class="content">
+      <div class="main-info">
+        <div class="avatar-wrapper">
+          <ng-template #image>
+            <img class="avatar"
+                 *ngIf="userData.image; else defaultImage"
+                 [src]="'data:image/jpeg;base64,' + userData.image"
+                 alt="user image"
+            />
+            <ng-template #defaultImage>
+              <img class="avatar"
+                   src="../../../../../assets/img/default_profile.jpg"
+                   alt="user image"
+              />
+            </ng-template>
+          </ng-template>
+          <div class="avatar-circle" *ngIf="isOwner; else image">
+            <label for="avatarInput">
+              <ng-container *ngTemplateOutlet="image"></ng-container>
+            </label>
+            <input type="file" id="avatarInput" accept="image/*" style="display: none;" #avatarInput
+                   (change)="onFileSelected($event)">
+          </div>
+        </div>
+        <div class="info">
+          <ng-container *ngIf="(isOwner || isAdmin) && isEditing; else notEditing">
+            <ng-container *ngFor="let field of editUserFields">
+              <div style="display: flex; flex-direction: row;">
+                <div class="user-field">
+                  <label>{{ field.label }}:</label>
+                  <input
+                    [type]="field.inputType"
+                    [maxlength]="field.maxLength"
+                    required
+                    [(ngModel)]="editUserForm[field.property]"
+                    class="form-control"
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-template #notEditing>
+            <ng-container *ngFor="let field of editUserFields">
+              <div class="user-field">
+                <label>{{ field.label }}:</label>
+                <span>{{ editUserForm[field.property] }}</span>
+              </div>
+            </ng-container>
+          </ng-template>
+          <div class="user-field">
+            <label>Date of creation:</label>
+            <span>{{ userData.created_at | date:'MMMM d, yyyy' }}</span>
+          </div>
+          <svg *ngIf="(isOwner || isAdmin) && !isEditing" (click)="enterEditMode()" xmlns="http://www.w3.org/2000/svg" width="25"
+               height="25"
+               fill="#657786" class="bi bi-pencil-square edit-icon" viewBox="0 0 16 16">
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+          <div class="edit-options edit-buttons" *ngIf="isEditing">
+            <button class="edit-btn" (click)="exitEditMode()">Cancel</button>
+            <button class="edit-btn save-btn" (click)="editUserInfo(userData.id)">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="user-pages">
+        <app-pages-list-info [userId]="userData.id" [isOwner]="isOwner"></app-pages-list-info>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isOwner" class="menu">
+    <app-account-panel [userId]="userData.id" [isAdmin]="isAdmin"></app-account-panel>
+  </div>
+</div>

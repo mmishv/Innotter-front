@@ -1,0 +1,39 @@
+.button {
+  background-color: #E10C0C;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 5px 10px;
+  font-size: 30px;
+  margin-top: 20px;
+  outline: none;
+  width: 45%;
+}
+
+.bezel-red-btn {
+  background-color: white;
+  color: #E10C0C;
+  border-color: #E10C0C;
+  border-radius: 30px;
+  padding: 5px 15px;
+  font-size: 20px;
+  outline: none;
+  margin-top: 5px;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: space-around;
+  vertical-align: middle;
+}
+
+.control-buttons button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 2.5rem;
+}
+
+.control-buttons svg {
+  vertical-align: middle;
+}

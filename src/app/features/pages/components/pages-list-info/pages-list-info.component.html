@@ -1,0 +1,43 @@
+<div class="user-pages">
+  <div class="pages-container">
+    <ul>
+      <ng-container *ngIf="userPages.length; else noPages">
+        <div class="pages-text">Pages:</div>
+        <li *ngFor="let page of userPages" class="page">
+          <div class="page-content" (click)="onClick(page.id)">
+            <div class="page-image">
+              <img
+                *ngIf="page.image_s3_path; else defaultImage"
+                [src]="'data:image/jpeg;base64,' + page.image"
+                alt="page image"
+              />
+              <ng-template #defaultImage>
+                <img
+                  src="assets/img/default_profile.jpg"
+                  alt="page image"/>
+              </ng-template>
+            </div>
+            <div class="page-info">
+              <span class="page-name">{{ page.name }}</span>
+              <span class="page-uuid">@{{ page.uuid }}</span>
+              <div *ngIf="page.tags.length" class="tags">
+                <ul class="tag-list">
+                  <li class="tag-list-item" *ngFor="let tag of page.tags">
+                    <div class="tag-text" [title]="tag.name">#{{ tag.name }}</div>
+                  </li>
+                </ul>
+              </div>
+              <div class="bio">{{page.description}}</div>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+      <ng-template #noPages>
+        <div *ngIf="!isOwner" class="pages-text"> This user hasn't created any pages yet</div>
+        <div *ngIf="isOwner">
+          <create-page></create-page>
+        </div>
+      </ng-template>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="top-bar" *ngIf="currentPage$ | async as currentPage">
+  <div class="avatar-wrapper">
+    <ng-template #image>
+      <img class="avatar"
+           *ngIf="currentPage.image_s3_path; else defaultImage"
+           [src]="'data:image/jpeg;base64,' + currentPage.image"
+           alt="page image"
+      />
+      <ng-template #defaultImage>
+        <img class="avatar"
+             src="../../../../../assets/img/default_profile.jpg"
+             alt="page image"
+        />
+      </ng-template>
+    </ng-template>
+    <div class="avatar-circle" *ngIf="isCurrentPage(); else image">
+      <label for="avatarInput">
+        <ng-container *ngTemplateOutlet="image"></ng-container>
+      </label>
+      <input type="file" id="avatarInput" accept="image/*" style="display: none;" #avatarInput
+             (change)="onFileSelected($event)">
+    </div>
+  </div>
+</div>
+<div class="page-wrapper" *ngIf="currentPage$ | async as currentPage">
+  <div class="left-panel-wrapper">
+    <div class="left-panel">
+      <div class="menu" *ngIf="isCurrentPage()">
+        <ul *ngIf="currentPageStatistics$ | async as currentPageStatistics">
+          <li><span class="icon-text">Posts ({{currentPageStatistics.posts}})</span></li>
+          <li><span class="icon-text">Followers ({{currentPageStatistics.followers}})</span></li>
+          <li><span class="icon-text">Requests ({{currentPageStatistics.follow_requests}})</span></li>
+          <li><span class="icon-text">Likes ({{currentPageStatistics.likes}})</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="home-btn-wrapper">
+      <a href="/home">Home</a>
+    </div>
+  </div>
+  <div class="content-wrapper" *ngIf="userData != undefined">
+    <div class="content">
+      <div class="main-info">
+        <div class="name-btn-container">
+          <div class="page-name"><h1>{{currentPage.name}}</h1></div>
+          <div *ngIf="isCurrentPage()" class="btn-container">
+            <app-edit-page></app-edit-page>
+          </div>
+          <div *ngIf="!isCurrentPage()" class="btn-container">
+            <div *ngIf="canSubscribe()">
+              <button (click)="onSubscribe(currentPage.id)" *ngIf="!currentPage.is_private" class="bezel-red-btn">
+                Follow
+              </button>
+              <button (click)="onSubscribe(currentPage.id)" *ngIf="currentPage.is_private" class="bezel-red-btn">Send a
+                                                                                                                 request
+              </button>
+            </div>
+            <button (click)="onUnsubscribe(currentPage.id)" *ngIf="canUnsubscribe()" class="bezel-red-btn">
+              Unfollow
+            </button>
+            <button (click)="onUnsubscribe(currentPage.id)" *ngIf="canCancelRequest()" class="bezel-red-btn">
+              Cancel request
+            </button>
+          </div>
+        </div>
+        <div class="page-uuid"><h5>@{{currentPage.uuid}}</h5></div>
+        <div class="tags">
+          <ul class="tag-list">
+            <li class="tag-list-item" *ngFor="let tag of currentPage.tags">
+              <div class="tag-text" [title]="tag.name">#{{ tag.name }}</div>
+            </li>
+          </ul>
+        </div>
+        <div class="bio">{{currentPage.description}}</div>
+      </div>
+      <div
+        *ngIf="currentPage.is_private && !canUnsubscribe() && !isOwner() && userData.role != 'ADMIN' && userData.role !='MODERATOR'; else posts"
+        class="private-account">
+        <h3>These account is private</h3>
+        <h6>Only approved followers can see @{{currentPage.uuid}} posts. To request access click Send a request. </h6>
+      </div>
+      <ng-template #posts>
+        <div *ngIf="isCurrentPage()">
+          <app-create-post></app-create-post>
+        </div>
+        <app-posts [posts]="currentPage.posts"></app-posts>
+      </ng-template>
+    </div>
+  </div>
+  <div class="right-panel-wrapper">
+    <div class="right-panel">
+      <div>
+        <app-tabs [page]="currentPage"></app-tabs>
+      </div>
+    </div>
+  </div>
+</div>

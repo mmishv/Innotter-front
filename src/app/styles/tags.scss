@@ -1,0 +1,41 @@
+.tag-list {
+  margin-top: 10px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.tag-list-item {
+  width: calc(25% - 10px);
+  min-width: 5vw;
+  margin: 5px;
+  position: relative;
+  background-color: #D9D9D9;
+  border-radius: 30px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tag-text {
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px;
+  max-width: 100%;
+}
+
+.tag-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px;
+  white-space: nowrap;
+}
