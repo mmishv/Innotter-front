@@ -18,6 +18,7 @@ export class LoginComponent {
   isLoginFailed: boolean = false;
   resetSuccess: boolean = false;
   errorMessage = '';
+  resetPasswordErrorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -39,8 +40,10 @@ export class LoginComponent {
     this.authService.resetPasswordRequest(this.resetData.email).subscribe((response) => {
       console.log(response)
       this.resetSuccess = true;
+       this.resetPasswordErrorMessage = '';
     }, (error) => {
       console.log(error)
+      this.resetPasswordErrorMessage = error.error.message;
     });
   }
 }

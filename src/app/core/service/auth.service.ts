@@ -37,8 +37,7 @@ export class AuthService {
     const body = new HttpParams()
       .set('username', username)
       .set('password', password);
-    return this.http.post<AuthResponse>(AUTH_URL + '/auth/login/', body.toString(),
-      httpOptionsForm).pipe(tap((response) => {
+    return this.http.post<AuthResponse>(AUTH_URL + '/auth/login/', body.toString(), httpOptionsForm).pipe(tap((response) => {
       if (response.access_token) {
         localStorage.setItem(this.accessToken, response.access_token);
         localStorage.setItem(this.refreshToken, response.refresh_token);
@@ -76,7 +75,8 @@ export class AuthService {
   getRefreshToken(): string | null {
     return localStorage.getItem(this.refreshToken);
   }
-  setTokens(accessToken: string, refreshToken: string){
+
+  setTokens(accessToken: string, refreshToken: string) {
     localStorage.setItem(this.accessToken, accessToken);
     localStorage.setItem(this.refreshToken, refreshToken);
   }

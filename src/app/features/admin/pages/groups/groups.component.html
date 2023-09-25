@@ -44,12 +44,13 @@
                             <span aria-hidden="true">&times;</span>
                           </button>
                           <div class="modal-body">
-                            <div class="form-group">
-                              <input class="form-control search" placeholder="Search by username..."
+                            <div>
+                              <input class="form-control" placeholder="Search by username..."
                                      autocomplete="off" type="text" [(ngModel)]="searchTerm"
                                      (keydown.enter)="getResults(searchTerm)">
                               <div class="search-result-item" *ngFor="let result of searchResults$ | async">
-                                <div data-dismiss="modal" (click)="addUserToGroup(result.id, group.id)">{{ result.username }} {{ result.email }}</div>
+                                <div data-dismiss="modal" (click)="addUserToGroup(result.id, group.id)">
+                                  {{ result.username }}, {{result.name}} {{result.surname}}, {{result.email}}</div>
                               </div>
                             </div>
                           </div>

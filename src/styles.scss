@@ -27,3 +27,8 @@ button:focus,
   outline: 0 !important;
   box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !important;
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #F5F5F5 inset;
+  -webkit-text-fill-color: inherit;
+}

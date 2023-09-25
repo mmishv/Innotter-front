@@ -14,13 +14,15 @@
         <h2>Post</h2>
       </div>
       <app-post [post]="postData" [userData]="userData"></app-post>
-      <app-create-post [reply]="true" [postId]="postData.id" [pageId]="postData.page.id"></app-create-post>
+      <div *ngIf="isPageSelected()">
+        <app-create-post [reply]="true" [postId]="postData.id" [pageId]="postData.page.id"></app-create-post>
+      </div>
       <div class="replies-container">
         <ng-container *ngIf="postData.replies.length; else noReplies">
           <app-posts [posts]="postData.replies"></app-posts>
         </ng-container>
         <ng-template #noReplies>
-          <div class="no-posts">There's nothing here yet, be the first to start the discussion!</div>
+          <div *ngIf="isPageSelected()" class="no-posts">There's nothing here yet, be the first to start the discussion!</div>
         </ng-template>
       </div>
     </div>

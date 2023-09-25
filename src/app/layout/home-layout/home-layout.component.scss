@@ -1,49 +1,6 @@
-.logo {
-  margin-bottom: 15%;
-  width: 65%;
-}
-
-.logo-text {
-  color: #E10C0C;
-  font-size: 45px;
-  font-family: "Open Sans", serif;
-  font-weight: 900;
-}
-
-.red-bar {
-  background-color: #E10C0C;
-  height: 2px;
-  width: 100%;
-}
-
 .logout-btn-wrapper {
   position: fixed;
   bottom: 0;
-}
-
-.menu {
-  padding: 0 10px;
-}
-
-.menu ul {
-  list-style: none;
-  padding: 0;
-}
-
-.menu ul li {
-  margin-bottom: 10px;
-}
-
-.menu ul li a {
-  text-decoration: none;
-  color: #657786;
-  font-weight: 600;
-  font-size: x-large;
-}
-
-.icon-text {
-  vertical-align: -3px;
-  margin-left: 10px;
 }
 
 h5 {
@@ -100,7 +57,7 @@ svg {
   right: 1%;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-height: 50%;
+  max-height: calc(33% - 10px);
   overflow-y: auto;
   width: 25%;
   z-index: 1;

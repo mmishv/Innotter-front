@@ -58,7 +58,7 @@
     </ng-template>
     <div class="indicator-value">{{post.liked_by.length}}</div>
   </div>
-  <div class="indicators">
+  <div *ngIf="isPageSelected()" class="indicators">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-reply"
          viewBox="0 0 16 16" (click)="onClick(post.page.id, post.id)">
       <path

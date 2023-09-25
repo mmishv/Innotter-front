@@ -1,14 +1,17 @@
 <div class="login-form">
-  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+  <form class="form-container" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
     <div class="form-field">
       <input type="text" placeholder="username" id="username" name="username" required [(ngModel)]="form.username"
              #username="ngModel">
       <input type="password" placeholder="password" id="password" name="password" required [(ngModel)]="form.password"
              #password="ngModel">
-      <div class="alert alert-danger" role="alert" *ngIf="f.submitted">
-        <ng-container *ngIf="username.errors"> Username is required <br></ng-container>
-        <ng-container *ngIf="password.errors"> Password is required <br></ng-container>
-        <ng-container *ngIf="isLoginFailed"> Invalid login or password <br></ng-container>
+      <div class="error-container" style="height: 15px;">
+        <div class="alert alert-danger" role="alert" style="padding: 5px 10px; margin: 3px;"
+             *ngIf="f.submitted && (isLoginFailed || username.errors || password.errors)">
+          <ng-container *ngIf="username.errors"> Username is required.</ng-container>
+          <ng-container *ngIf="password.errors"> Password is required.</ng-container>
+          <ng-container *ngIf="isLoginFailed"> Invalid login or password.</ng-container>
+        </div>
       </div>
     </div>
     <div class="login-options">
@@ -31,7 +34,12 @@
                     <button class="button reset-button" [disabled]="!resetForm.form.valid">Reset password</button>
                   </div>
                 </form>
-                <div class="alert alert-success mt-2" *ngIf="resetSuccess">Password reset email sent.</div>
+                <div class="alert alert-success" *ngIf="resetSuccess"
+                     style="font-size:small; padding: 5px 10px; margin: 10px;">Password reset email has been sent
+                </div>
+                <div class="alert alert-danger" *ngIf="resetPasswordErrorMessage"
+                     style="font-size:small; padding: 5px 10px; margin: 10px;">{{resetPasswordErrorMessage}}
+                </div>
               </div>
             </div>
           </div>

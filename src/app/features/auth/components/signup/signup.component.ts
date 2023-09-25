@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {AuthService} from "../../../../core/service/auth.service";
 import {Router} from "@angular/router";
@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 
 
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   signUpForm: any = {
     username: null,
     email: null,
@@ -21,9 +21,6 @@ export class SignupComponent implements OnInit {
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   onSubmit(): void {
     const { username, email, password, confirmPassword } = this.signUpForm;

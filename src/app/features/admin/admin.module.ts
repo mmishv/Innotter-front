@@ -14,7 +14,7 @@ import { TagsComponent } from './pages/tags/tags.component';
 
 @NgModule({
   declarations: [UsersComponent, AdminNavbarComponent, GroupsComponent, PagesComponent, TagsComponent],
-  exports: [UsersComponent],
+    exports: [UsersComponent, AdminNavbarComponent],
     imports: [AdminRoutingModule, PostsModule, UserModule, NgForOf, AsyncPipe, FormsModule, NgIf, DatePipe]
 })
 export class AdminModule {
